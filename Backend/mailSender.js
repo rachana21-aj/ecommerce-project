@@ -12,7 +12,7 @@ const sendMail = async (to, subject, html, attachment = null) => {
       html: html,
     };
 
-    // ✅ attach PDF if available
+   
     if (attachment) {
       msg.attachments = [attachment];
     }
