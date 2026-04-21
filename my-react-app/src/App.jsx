@@ -10,7 +10,7 @@ import Addproduct from "./components/addproduct";
 import ManageProduct from "./components/manageproduct";
 import ProductDetails from "./components/Home/productdetails";
 import Cart from "./components/Home/Cart";
-import Checkout from "./components/Home/checkout";
+import Checkout from "./components/Home/Checkout";
 import OrderSuccess from "./components/Home/OrderSuccess";
 import ManageOrder from "./components/manageorder";
 import Payment from "./components/Home/Payment";
