@@ -26,7 +26,7 @@ function Login() {
     if (!validateEmail(email)) return;
 
     try {
-      await axios.post("http://127.0.0.1:3001/login", { email });
+      await axios.post("https://ecommerce-backend-tc76.onrender.com/login", { email });
 
       
       navigate("/otp", { state: { email } });

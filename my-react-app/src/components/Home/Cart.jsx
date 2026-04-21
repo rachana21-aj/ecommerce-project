@@ -11,7 +11,7 @@ function Cart() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:3001/products")
+    axios.get("https://ecommerce-backend-tc76.onrender.com/products")
       .then(res => setProducts(res.data))
       .catch(err => console.log(err));
   }, []);

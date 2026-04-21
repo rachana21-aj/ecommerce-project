@@ -19,11 +19,11 @@ const handleVerify = async () => {
 try {
 
   const res = await axios.post(
-    "http://127.0.0.1:3001/verify-otp",
+    "https://ecommerce-backend-tc76.onrender.com/verify-otp",
     { email, otp }
   );
 
-  // SAVE EMAIL FOR CHECKOUT PAGE
+  
   localStorage.setItem("email", res.data.email);
 
   navigate("/");
@@ -42,7 +42,7 @@ const handleResend = async () => {
 
 try {
 
-  await axios.post("http://127.0.0.1:3001/resend-otp", { email });
+  await axios.post("https://ecommerce-backend-tc76.onrender.com/resend-otp", { email });
   alert("OTP resent successfully");
 
 } catch (err) {
