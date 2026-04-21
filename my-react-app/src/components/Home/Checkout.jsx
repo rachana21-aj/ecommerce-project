@@ -20,7 +20,7 @@ function Checkout() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // ✅ FIX: handle both direct buy & cart
+  
   const checkoutItems =
     location.state && location.state.product
       ? [
@@ -33,26 +33,26 @@ function Checkout() {
       : cart;
 
   useEffect(() => {
-    axios.get("http://localhost:3001/products")
+    axios.get("https://ecommerce-backend-tc76.onrender.com/products")
       .then(res => setProducts(res.data))
       .catch(err => console.log(err));
   }, []);
 
-  // ✅ FIX: string compare (important)
+ 
   const getProduct = (id) => {
     return products.find(p => String(p._id) === String(id));
   };
 
-  // ✅ SUBTOTAL
+  
   const subtotal = checkoutItems.reduce((sum, item) => {
     const product = getProduct(item.id || item._id);
     return product ? sum + product.price * item.quantity : sum;
   }, 0);
 
-  // ✅ GST 18%
+  
   const gst = Math.round(subtotal * 0.18);
 
-  // ✅ FINAL TOTAL
+  
   const total = subtotal + gst;
 
   const handleSubmit = async (e) => {
@@ -67,7 +67,7 @@ function Checkout() {
         return;
       }
 
-      const res = await axios.post("http://localhost:3001/place-order", {
+      const res = await axios.post("https://ecommerce-backend-tc76.onrender.com/place-order", {
         fullName,
         email: userEmail,
         phone,
@@ -76,7 +76,7 @@ function Checkout() {
         state: stateName,
         pincode,
 
-        // ✅ IMPORTANT FIX
+       
         items: checkoutItems.map(item => {
           const product = getProduct(item.id || item._id);
 
