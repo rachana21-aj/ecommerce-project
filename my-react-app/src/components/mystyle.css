@@ -1,0 +1,127 @@
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+}
+.nav-bar{
+    background-color:black;
+    border-bottom:1px solid #444;
+
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+}
+.container{
+    display:flex;
+    align-items:center;
+    height:70px;
+    padding:0 20px;
+}
+.LOGO{
+    color:white;
+    font-size:30px;
+    font-style:italic;
+    font-weight:bold;
+    margin-right:40px;
+}
+.nav-links{
+    list-style:none;
+    display:flex;
+    gap:35px;
+    margin:0;
+    padding:0;
+}
+.nav-links li{
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
+.nav-bar .nav-links li:hover{
+    color:red;
+}
+.right-part{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.right-part a{
+    color:white;
+    text-decoration:none;
+}
+.search-box input{
+    padding:6px 10px;
+    border:1px solid #ccc;
+    border-radius:4px;
+    width:180px;
+    outline:none;
+}
+.search-box input:focus{
+    border-color:green;
+}
+.right-links{
+    margin-left:auto;
+    display:flex;
+    gap:25px;
+}
+.right-links a{
+    color:white;
+    text-decoration:none;
+    font-size:16px;
+}
+.right-links a:hover{
+    color:red;
+}
+.profile-section {
+  position: relative;
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  width: 180px;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+}
+.profile-dropdown p {
+  margin: 8px 0;
+}
+.profile-dropdown button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.profile-section {
+  position: relative;
+  margin-left: 15px;
+  cursor: pointer;
+}
+.profile-dropdown {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  width: 180px;
+  background: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+}
+.profile-dropdown p {
+  margin: 8px 0;
+}
+.profile-dropdown button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}

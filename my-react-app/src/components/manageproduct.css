@@ -1,0 +1,51 @@
+.manage-container {
+  width: 90%;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.manage-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.manage-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.manage-table th {
+  background: #333;
+  color: white;
+  padding: 12px;
+}
+
+.manage-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.manage-table tr:nth-child(even) {
+  background: #f5f5f5;
+}
+
+.manage-table img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;   
+  background: #f5f5f5;   
+}
+
+.delete-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: darkred;
+}

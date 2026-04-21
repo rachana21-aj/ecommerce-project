@@ -1,0 +1,55 @@
+.admin-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.admin-box {
+  position: fixed;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+}
+    
+    
+
+
+
+h2 {
+    margin: 0;
+}
+
+.sub {
+    color: gray;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid red;
+    outline: none;
+}
+
+.error {
+    color: red;
+    font-size: 13px;
+    margin-top: 6px;
+}
+
+button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px;
+    background-color: gray;
+    border: none;
+    color: blue;
+    font-size: 16px;
+    cursor: pointer;
+}

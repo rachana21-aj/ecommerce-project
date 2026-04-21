@@ -1,0 +1,50 @@
+.add-product-container {
+  width: 400px;
+  margin: 100px auto;   
+  background-color: white;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.add-product-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-product-container label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+.add-product-container input,
+.add-product-container textarea,
+.add-product-container select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-product-container textarea {
+  resize: none;
+  height: 80px;
+}
+
+.add-product-container button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #7b3326;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.add-product-container button:hover {
+  background-color: #1b5e20;
+}

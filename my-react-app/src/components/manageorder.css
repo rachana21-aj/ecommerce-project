@@ -1,0 +1,119 @@
+.manage-container {
+  padding: 30px;
+  text-align: center;
+  width: 100%;
+}
+
+
+.table-wrapper{
+  width:100%;
+  overflow-x:auto;
+}
+
+
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  table-layout: fixed;
+}
+
+
+
+.order-table th,
+.order-table td {
+  border: 1px solid #000;
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+  word-wrap: break-word;
+  vertical-align: middle;
+}
+
+
+
+.order-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+
+
+.order-table th:nth-child(1),
+.order-table td:nth-child(1){
+  width:120px;
+}
+
+.order-table th:nth-child(2),
+.order-table td:nth-child(2){
+  width:120px;
+}
+
+.order-table th:nth-child(3),
+.order-table td:nth-child(3){
+  width:120px;
+}
+
+.order-table th:nth-child(4),
+.order-table td:nth-child(4){
+  width:200px;
+}
+
+.order-table th:nth-child(5),
+.order-table td:nth-child(5){
+  width:80px;
+}
+
+.order-table th:nth-child(6),
+.order-table td:nth-child(6){
+  width:120px;
+}
+
+.order-table th:nth-child(7),
+.order-table td:nth-child(7){
+  width:100px;
+}
+
+.order-table th:nth-child(8),
+.order-table td:nth-child(8){
+  width:120px;
+}
+
+.order-table th:nth-child(9),
+.order-table td:nth-child(9){
+  width:110px;
+}
+
+.order-table th:nth-child(10),
+.order-table td:nth-child(10){
+  width:120px;
+}
+
+
+
+.delete-btn {
+  background-color: red;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.edit-btn {
+  background-color: red;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+
+
+select{
+  padding:5px;
+  width:100%;
+}

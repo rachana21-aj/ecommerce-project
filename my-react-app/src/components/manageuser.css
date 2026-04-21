@@ -1,0 +1,29 @@
+.manage-container {
+  padding: 20px;
+}
+
+.manage-container h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.manage-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.manage-table th,
+.manage-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.manage-table th {
+  background-color:black;
+}
+
+.manage-table tr:hover {
+  background-color: #f9f9f9;
+}
