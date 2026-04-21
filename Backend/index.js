@@ -125,7 +125,7 @@ app.post("/addproduct", upload.single("image"), async (req, res) => {
       price: Number(req.body.price),
       quantity: req.body.quantity,
       category: req.body.category,
-      image: req.file ? req.file.path : ""
+      image: req.file ? req.file.path || req.file.secure_url : ""
     });
 
     const savedProduct = await newProduct.save();
@@ -170,7 +170,7 @@ category: req.body.category
 };
 
 if (req.file) {
-  updatedProduct.image = req.file.path;   
+ updatedProduct.image = req.file.path || req.file.secure_url;   
 }
 
 await Product.findByIdAndUpdate(req.params.id, updatedProduct);

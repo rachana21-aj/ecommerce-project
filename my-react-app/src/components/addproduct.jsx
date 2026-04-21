@@ -48,10 +48,15 @@ const handleAddProduct = async () => {
   try {
 
     if (product) {
-      await axios.put(
-        `https://ecommerce-backend-tc76.onrender.com/updateproduct/${product._id}`,
-        formData
-      );
+      await axios.post(
+  "https://ecommerce-backend-tc76.onrender.com/addproduct",
+  formData,
+  {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  }
+);
       alert("Product Updated Successfully");
     } else {
       await axios.post(
