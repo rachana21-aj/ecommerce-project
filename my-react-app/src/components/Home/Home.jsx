@@ -20,7 +20,7 @@ function Home() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/products")
+      .get("https://ecommerce-backend-tc76.onrender.com/products")
       .then((res) => setProducts(res.data))
       .catch((err) => console.log(err));
   }, []);
