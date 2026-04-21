@@ -49,13 +49,13 @@ const handleAddProduct = async () => {
 
     if (product) {
       await axios.put(
-        `http://localhost:3001/updateproduct/${product._id}`,
+        `https://ecommerce-backend-tc76.onrender.com/updateproduct/${product._id}`,
         formData
       );
       alert("Product Updated Successfully");
     } else {
       await axios.post(
-        "http://localhost:3001/addproduct",
+        "https://ecommerce-backend-tc76.onrender.com/addproduct",
         formData
       );
       alert("Product Added Successfully");

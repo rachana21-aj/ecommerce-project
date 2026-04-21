@@ -18,7 +18,7 @@ function EditOrder() {
   const getOrder = async () => {
     try {
 
-      const res = await axios.get("http://localhost:3001/orders");
+      const res = await axios.get("https://ecommerce-backend-tc76.onrender.com/orders");
 
       const order = res.data.find((o) => o._id === id);
 
@@ -36,7 +36,7 @@ const updateOrder = async () => {
 
   try {
 
-    await axios.put(`http://localhost:3001/update-order/${id}`, {
+    await axios.put(`https://ecommerce-backend-tc76.onrender.com/update-order/${id}`, {
       status: orderStatus,
       paymentStatus: paymentStatus
     });

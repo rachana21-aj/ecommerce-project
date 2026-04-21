@@ -29,7 +29,7 @@ function CartProvider({ children }) {
       localStorage.setItem(`cart_${email}`, JSON.stringify(updatedCart));
 
       
-      axios.post("http://localhost:3001/save-cart", {
+      axios.post("https://ecommerce-backend-tc76.onrender.com/save-cart", {
         userEmail: email,
         cart: updatedCart
       }).catch(err => console.log(err));

@@ -15,7 +15,7 @@ function ManageProduct() {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/products");
+      const res = await axios.get("https://ecommerce-backend-tc76.onrender.com/products");
       setProducts(res.data);
     } catch (err) {
       console.log(err);
@@ -24,7 +24,7 @@ function ManageProduct() {
 
   const deleteProduct = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/deleteproducts/${id}`);
+      await axios.delete(`https://ecommerce-backend-tc76.onrender.com/deleteproducts/${id}`);
       fetchProducts();
     } catch (err) {
       console.log(err);

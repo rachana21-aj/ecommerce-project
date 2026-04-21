@@ -23,14 +23,14 @@ const handlePayment = async () => {
 try {
   if (paymentMethod === "cod") {
 
-    await axios.put(`http://localhost:3001/update-payment/${orderId}`, {
+    await axios.put(`https://ecommerce-backend-tc76.onrender.com/update-payment/${orderId}`, {
       paymentMethod: "cod",
       status: "pending"
     });
     navigate("/ordersuccess", { state: { orderId } });
   }
  else {
-    const res = await axios.post("http://localhost:3001/create-order", {
+    const res = await axios.post("https://ecommerce-backend-tc76.onrender.com/create-order", {
       amount: total
     });
     const order = res.data;
@@ -42,7 +42,7 @@ try {
 
       handler: async function () {
 
-        await axios.put(`http://localhost:3001/update-payment/${orderId}`, {
+        await axios.put(`https://ecommerce-backend-tc76.onrender.com/update-payment/${orderId}`, {
           paymentMethod: "razorpay",
           status: "Paid"
         });

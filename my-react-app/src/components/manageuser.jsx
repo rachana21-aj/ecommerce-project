@@ -13,7 +13,7 @@ function ManageUser() {
 
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/users");
+      const res = await axios.get("https://ecommerce-backend-tc76.onrender.com/users");
       setUsers(res.data);
     } catch (err) {
       console.log(err);

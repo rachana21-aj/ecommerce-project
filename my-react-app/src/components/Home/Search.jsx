@@ -16,7 +16,7 @@ function SearchPage() {
   const [sizes, setSizes] = useState({});
 
   useEffect(() => {
-    axios.get("http://localhost:3001/products")
+    axios.get("https://ecommerce-backend-tc76.onrender.com/products")
       .then((res) => {
         setProducts(res.data);
       })

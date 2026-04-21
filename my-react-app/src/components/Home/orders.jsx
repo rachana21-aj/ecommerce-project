@@ -9,7 +9,7 @@ function Orders() {
 useEffect(() => {
 
   const fetchOrders = () => {
-    axios.get(`http://localhost:3001/my-orders/${userEmail}`)
+    axios.get(`https://ecommerce-backend-tc76.onrender.com/my-orders/${userEmail}`)
       .then(res => {
         const filtered = res.data.filter(
           (order) => order.email === userEmail
@@ -21,7 +21,7 @@ useEffect(() => {
 
   fetchOrders(); // first load
 
-  const interval = setInterval(fetchOrders, 3000); // refresh every 3 sec
+  const interval = setInterval(fetchOrders, 3000); 
 
   return () => clearInterval(interval);
 

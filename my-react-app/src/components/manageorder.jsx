@@ -15,7 +15,7 @@ function ManageOrders() {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/orders");
+      const res = await axios.get("https://ecommerce-backend-tc76.onrender.com/orders");
       setOrders(res.data);
     } catch (err) {
       console.log(err);
@@ -25,7 +25,7 @@ function ManageOrders() {
   const deleteOrder = async (id) => {
     try {
 
-      await axios.delete(`http://localhost:3001/delete-order/${id}`);
+      await axios.delete(`https://ecommerce-backend-tc76.onrender.com/delete-order/${id}`);
 
       alert("Order deleted successfully");
 
