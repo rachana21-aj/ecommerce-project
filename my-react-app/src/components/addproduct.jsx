@@ -60,9 +60,14 @@ const handleAddProduct = async () => {
       alert("Product Updated Successfully");
     } else {
       await axios.post(
-        "https://ecommerce-backend-tc76.onrender.com/addproduct",
-        formData
-      );
+ "https://ecommerce-backend-tc76.onrender.com/addproduct",
+ formData,
+ {
+   headers:{
+     "Content-Type":"multipart/form-data"
+   }
+ }
+);
       alert("Product Added Successfully");
     }
 
