@@ -259,34 +259,51 @@ app.post("/place-order", async (req, res) => {
         }
       );
     });
+doc.fontSize(14).text("LimeRoad", { align: "center" });
+doc.fontSize(10).text("Fashion Store", { align: "center" });
+doc.moveDown();
 
-    
-    doc.fontSize(18).text("INVOICE", { align: "center" });
-    doc.moveDown();
 
-    doc.fontSize(12).text(`Order ID: ${savedOrder._id}`);
-    doc.text(`Name: ${req.body.fullName}`);
-    doc.text(`Email: ${req.body.email}`);
-    doc.text(`Address: ${req.body.address}, ${req.body.city}`);
-    doc.moveDown();
+   doc.fontSize(16).text("INVOICE", { align: "center" });
+doc.moveDown();
 
-    doc.text("Items:");
-    req.body.items.forEach((item, i) => {
-      doc.text(
-        `${i + 1}. ${item.name} | ₹${item.price} x ${item.quantity}`
-      );
-    });
+doc.fontSize(11);
+doc.text(`Order ID: ${savedOrder._id}`);
+doc.text(`Date: ${new Date().toLocaleDateString()}`);
+doc.moveDown();
 
-    doc.moveDown();
+doc.text(`Name: ${req.body.fullName}`);
+doc.text(`Email: ${req.body.email}`);
+doc.text(`Address: ${req.body.address}, ${req.body.city}`);
+doc.moveDown();
 
-    const subtotal = req.body.subtotal || req.body.total;
-    const gst = req.body.gst || Math.round(subtotal * 0.18);
+doc.text("Items:");
+doc.text("--------------------------------");
 
-    doc.text(`Subtotal: ₹${subtotal}`);
-    doc.text(`GST (18%): ₹${gst}`);
-    doc.text(`Total: ₹${req.body.total}`);
+let subtotal = 0;
 
-    doc.end();
+req.body.items.forEach((item, i) => {
+  const total = item.price * item.quantity;
+  subtotal += total;
+
+  doc.text(
+    `${i + 1}. ${item.name} - ₹${item.price} x ${item.quantity} = ₹${total}`
+  );
+});
+
+doc.moveDown();
+
+const cgst = Math.round(subtotal * 0.09);
+const sgst = Math.round(subtotal * 0.09);
+const grandTotal = subtotal + cgst + sgst;
+
+doc.text(`Subtotal: ₹${subtotal}`);
+doc.text(`CGST (9%): ₹${cgst}`);
+doc.text(`SGST (9%): ₹${sgst}`);
+doc.text(`Total: ₹${grandTotal}`);
+
+doc.moveDown();
+doc.text("Thank you for your purchase!");
 
     res.json({
       message: "Order placed successfully",
