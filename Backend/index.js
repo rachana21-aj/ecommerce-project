@@ -305,10 +305,12 @@ doc.text(`Total: ₹${grandTotal}`);
 doc.moveDown();
 doc.text("Thank you for your purchase!");
 
-    res.json({
-      message: "Order placed successfully",
-      orderId: savedOrder._id
-    });
+    doc.end();
+
+res.json({
+  message: "Order placed successfully",
+  orderId: savedOrder._id
+});
 
   } catch (err) {
     console.log(err);
