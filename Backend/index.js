@@ -259,51 +259,65 @@ app.post("/place-order", async (req, res) => {
         }
       );
     });
-doc.fontSize(14).text("LimeRoad", { align: "center" });
-doc.fontSize(10).text("Fashion Store", { align: "center" });
+    
+doc.fontSize(10).text("LimeRoad Pvt Ltd");
+doc.text("Kotekar, Mangalore");
+doc.text("Karnataka, India");
+doc.text("Email: support@limeroad.com");
 doc.moveDown();
 
 
-   doc.fontSize(16).text("INVOICE", { align: "center" });
+doc.fontSize(14).text("OFFICIAL RECEIPT", { align: "center" });
 doc.moveDown();
 
-doc.fontSize(11);
+
+doc.fontSize(10);
+doc.text(`Invoice #: INV-${Date.now()}`);
 doc.text(`Order ID: ${savedOrder._id}`);
 doc.text(`Date: ${new Date().toLocaleDateString()}`);
+doc.text(`Payment: ${req.body.payment}`);
+doc.text(`Status: ${req.body.orderStatus}`);
 doc.moveDown();
 
-doc.text(`Name: ${req.body.fullName}`);
-doc.text(`Email: ${req.body.email}`);
-doc.text(`Address: ${req.body.address}, ${req.body.city}`);
+doc.text("Billed To:");
+doc.text(req.body.fullName);
+doc.text(`${req.body.address}, ${req.body.city}, ${req.body.state}`);
 doc.moveDown();
 
-doc.text("Items:");
-doc.text("--------------------------------");
+
+doc.text("--------------------------------------------------------------");
+doc.text("Item            Qty     Price     CGST     SGST     Total");
+doc.text("--------------------------------------------------------------");
 
 let subtotal = 0;
 
-req.body.items.forEach((item, i) => {
+
+req.body.items.forEach(item => {
   const total = item.price * item.quantity;
-  subtotal += total;
+  const base = total / 1.18;
+  const cgst = base * 0.09;
+  const sgst = base * 0.09;
+
+  subtotal += base;
 
   doc.text(
-    `${i + 1}. ${item.name} - ₹${item.price} x ${item.quantity} = ₹${total}`
+    `${item.name.substring(0,12)}     ${item.quantity}     ${item.price}     ${cgst.toFixed(2)}     ${sgst.toFixed(2)}     ${total}`
   );
 });
 
 doc.moveDown();
 
-const cgst = Math.round(subtotal * 0.09);
-const sgst = Math.round(subtotal * 0.09);
-const grandTotal = subtotal + cgst + sgst;
 
-doc.text(`Subtotal: ₹${subtotal}`);
-doc.text(`CGST (9%): ₹${cgst}`);
-doc.text(`SGST (9%): ₹${sgst}`);
-doc.text(`Total: ₹${grandTotal}`);
+const totalTax = subtotal * 0.18;
+const grandTotal = subtotal + totalTax;
+
+doc.text(`Taxable Subtotal: ₹${subtotal.toFixed(2)}`);
+doc.text(`Total Tax (GST 18%): ₹${totalTax.toFixed(2)}`);
+doc.text(`Shipping: FREE`);
+doc.text(`Grand Total: ₹${grandTotal.toFixed(2)}`);
 
 doc.moveDown();
-doc.text("Thank you for your purchase!");
+doc.text("Thank you for shopping with LimeRoad!", { align: "center" });
 
     doc.end();
 
