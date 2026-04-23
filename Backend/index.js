@@ -237,7 +237,8 @@ app.post("/place-order", async (req, res) => {
     
     const doc = new PDFDocument({ size: "A4", margin: 50 });
 
-
+let buffers = [];
+doc.on("data", chunk => buffers.push(chunk));
 
 doc.fontSize(16).text("LimeRoad Pvt Ltd", 50, 50);
 doc.fontSize(10).text("Kotekar, Mangalore");
@@ -321,7 +322,30 @@ doc.text(`Grand Total: ₹${grandTotal.toFixed(2)}`, 350, y + 50);
 doc.text("Thank you for shopping with LimeRoad!", 50, 750, {
   align: "center"
 });
+doc.on("end", async () => {
+  try {
+    const pdfData = Buffer.concat(buffers);
 
+    await sendMail(
+      req.body.email,
+      "Invoice - Order Confirmation",
+      `<h3>Your order is confirmed</h3>
+       <p>Order ID: ${savedOrder._id}</p>
+       <p>Total: ₹${req.body.total}</p>`,
+      {
+        content: pdfData.toString("base64"),
+        filename: "invoice.pdf",
+        type: "application/pdf",
+        disposition: "attachment"
+      }
+    );
+
+    console.log("Invoice mail sent ✅");
+
+  } catch (err) {
+    console.log("Mail error ❌", err);
+  }
+});
     doc.end();
 
 res.json({
