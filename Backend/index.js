@@ -235,62 +235,54 @@ app.post("/place-order", async (req, res) => {
     const savedOrder = await order.save();
 
     
-    const doc = new PDFDocument();
-    let buffers = [];
+    const doc = new PDFDocument({ size: "A4", margin: 50 });
 
-    doc.on("data", buffers.push.bind(buffers));
 
-    doc.on("end", async () => {
-      const pdfData = Buffer.concat(buffers);
 
-     
-      await sendMail(
-        req.body.email,
-        "Invoice - Order Confirmation",
-        `<h3>Your order is confirmed</h3>
-         <p>Order ID: ${savedOrder._id}</p>
-         <p>Total: ₹${req.body.total}</p>`,
-
-        {
-          content: pdfData.toString("base64"),
-          filename: "invoice.pdf",
-          type: "application/pdf",
-          disposition: "attachment"
-        }
-      );
-    });
-    
-doc.fontSize(10).text("LimeRoad Pvt Ltd");
-doc.text("Kotekar, Mangalore");
+doc.fontSize(16).text("LimeRoad Pvt Ltd", 50, 50);
+doc.fontSize(10).text("Kotekar, Mangalore");
 doc.text("Karnataka, India");
 doc.text("Email: support@limeroad.com");
-doc.moveDown();
 
+doc.fontSize(14).text("OFFICIAL RECEIPT", 400, 50);
 
-doc.fontSize(14).text("OFFICIAL RECEIPT", { align: "center" });
-doc.moveDown();
+doc.moveDown(3);
+
 
 
 doc.fontSize(10);
-doc.text(`Invoice #: INV-${Date.now()}`);
+doc.text(`Invoice #: INV-${Date.now()}`, 50, 120);
 doc.text(`Order ID: ${savedOrder._id}`);
 doc.text(`Date: ${new Date().toLocaleDateString()}`);
-doc.text(`Payment: ${req.body.payment}`);
-doc.text(`Status: ${req.body.orderStatus}`);
-doc.moveDown();
 
-doc.text("Billed To:");
+doc.text(`Payment: ${req.body.payment}`, 350, 120);
+doc.text(`Status: ${req.body.orderStatus}`, 350, 135);
+
+
+
+doc.text("Billed To:", 50, 170);
 doc.text(req.body.fullName);
 doc.text(`${req.body.address}, ${req.body.city}, ${req.body.state}`);
-doc.moveDown();
 
 
-doc.text("--------------------------------------------------------------");
-doc.text("Item            Qty     Price     CGST     SGST     Total");
-doc.text("--------------------------------------------------------------");
 
+const tableTop = 240;
+
+doc.moveTo(50, tableTop).lineTo(550, tableTop).stroke();
+
+doc.text("Item", 50, tableTop + 5);
+doc.text("Qty", 250, tableTop + 5);
+doc.text("Price", 300, tableTop + 5);
+doc.text("CGST", 370, tableTop + 5);
+doc.text("SGST", 430, tableTop + 5);
+doc.text("Total", 500, tableTop + 5);
+
+doc.moveTo(50, tableTop + 20).lineTo(550, tableTop + 20).stroke();
+
+
+
+let y = tableTop + 30;
 let subtotal = 0;
-
 
 req.body.items.forEach(item => {
   const total = item.price * item.quantity;
@@ -300,24 +292,35 @@ req.body.items.forEach(item => {
 
   subtotal += base;
 
-  doc.text(
-    `${item.name.substring(0,12)}     ${item.quantity}     ${item.price}     ${cgst.toFixed(2)}     ${sgst.toFixed(2)}     ${total}`
-  );
+  doc.text(item.name, 50, y);
+  doc.text(item.quantity.toString(), 250, y);
+  doc.text(`₹${item.price}`, 300, y);
+  doc.text(cgst.toFixed(2), 370, y);
+  doc.text(sgst.toFixed(2), 430, y);
+  doc.text(`₹${total}`, 500, y);
+
+  y += 20;
 });
 
-doc.moveDown();
+doc.moveTo(50, y).lineTo(550, y).stroke();
+
 
 
 const totalTax = subtotal * 0.18;
 const grandTotal = subtotal + totalTax;
 
-doc.text(`Taxable Subtotal: ₹${subtotal.toFixed(2)}`);
-doc.text(`Total Tax (GST 18%): ₹${totalTax.toFixed(2)}`);
-doc.text(`Shipping: FREE`);
-doc.text(`Grand Total: ₹${grandTotal.toFixed(2)}`);
+y += 20;
 
-doc.moveDown();
-doc.text("Thank you for shopping with LimeRoad!", { align: "center" });
+doc.text(`Subtotal: ₹${subtotal.toFixed(2)}`, 350, y);
+doc.text(`GST (18%): ₹${totalTax.toFixed(2)}`, 350, y + 15);
+doc.text(`Shipping: FREE`, 350, y + 30);
+doc.text(`Grand Total: ₹${grandTotal.toFixed(2)}`, 350, y + 50);
+
+
+
+doc.text("Thank you for shopping with LimeRoad!", 50, 750, {
+  align: "center"
+});
 
     doc.end();
 
