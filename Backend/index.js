@@ -270,13 +270,12 @@ doc.text(`${req.body.address}, ${req.body.city}, ${req.body.state}`);
 const tableTop = 240;
 
 doc.moveTo(50, tableTop).lineTo(550, tableTop).stroke();
-
 doc.text("Item", 50, tableTop + 5);
-doc.text("Qty", 250, tableTop + 5);
-doc.text("Price", 300, tableTop + 5);
-doc.text("CGST", 370, tableTop + 5);
-doc.text("SGST", 430, tableTop + 5);
-doc.text("Total", 500, tableTop + 5);
+doc.text("Qty", 250, tableTop + 5, { width: 40, align: "right" });
+doc.text("Price", 300, tableTop + 5, { width: 60, align: "right" });
+doc.text("CGST", 370, tableTop + 5, { width: 60, align: "right" });
+doc.text("SGST", 430, tableTop + 5, { width: 60, align: "right" });
+doc.text("Total", 500, tableTop + 5, { width: 60, align: "right" });
 
 doc.moveTo(50, tableTop + 20).lineTo(550, tableTop + 20).stroke();
 
@@ -291,12 +290,13 @@ req.body.items.forEach(item => {
 
   subtotal += total;
 
-  doc.text(item.name, 50, y);
-  doc.text(item.quantity.toString(), 250, y);
-  doc.text(`₹${item.price}`, 300, y);
-  doc.text(cgst.toFixed(2), 370, y);
-  doc.text(sgst.toFixed(2), 430, y);
-  doc.text(`₹${total}`, 500, y);
+  doc.text(item.name, 50, y, { width: 180 });
+
+doc.text(item.quantity.toString(), 250, y, { width: 40, align: "right" });
+doc.text(`₹${item.price.toFixed(2)}`, 300, y, { width: 60, align: "right" });
+doc.text(`₹${cgst.toFixed(2)}`, 370, y, { width: 60, align: "right" });
+doc.text(`₹${sgst.toFixed(2)}`, 430, y, { width: 60, align: "right" });
+doc.text(`₹${total.toFixed(2)}`, 500, y, { width: 60, align: "right" });
 
   y += 20;
 });
@@ -310,10 +310,17 @@ const grandTotal = subtotal + totalTax;
 
 y += 20;
 
-doc.text(`Subtotal: ₹${subtotal.toFixed(2)}`, 350, y);
-doc.text(`GST (18%): ₹${totalTax.toFixed(2)}`, 350, y + 15);
-doc.text(`Shipping: FREE`, 350, y + 30);
-doc.text(`Grand Total: ₹${grandTotal.toFixed(2)}`, 350, y + 50);
+doc.text("Subtotal:", 350, y);
+doc.text(`₹${subtotal.toFixed(2)}`, 500, y, { width: 60, align: "right" });
+
+doc.text("GST (18%):", 350, y + 15);
+doc.text(`₹${totalTax.toFixed(2)}`, 500, y + 15, { width: 60, align: "right" });
+
+doc.text("Shipping:", 350, y + 30);
+doc.text("FREE", 500, y + 30, { width: 60, align: "right" });
+
+doc.text("Grand Total:", 350, y + 50);
+doc.text(`₹${grandTotal.toFixed(2)}`, 500, y + 50, { width: 60, align: "right" });
 
 
 
