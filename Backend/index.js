@@ -280,18 +280,16 @@ doc.text("Total", 500, tableTop + 5);
 
 doc.moveTo(50, tableTop + 20).lineTo(550, tableTop + 20).stroke();
 
-
-
 let y = tableTop + 30;
 let subtotal = 0;
 
 req.body.items.forEach(item => {
   const total = item.price * item.quantity;
-  const base = total / 1.18;
-  const cgst = base * 0.09;
-  const sgst = base * 0.09;
 
-  subtotal += base;
+  const cgst = total * 0.09;
+  const sgst = total * 0.09;
+
+  subtotal += total;
 
   doc.text(item.name, 50, y);
   doc.text(item.quantity.toString(), 250, y);
