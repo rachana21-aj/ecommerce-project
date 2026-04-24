@@ -345,10 +345,10 @@ doc.on("end", async () => {
       }
     );
 
-    console.log("Invoice mail sent ✅");
+    console.log("Invoice mail sent ");
 
   } catch (err) {
-    console.log("Mail error ❌", err);
+    console.log("Mail error ", err);
   }
 });
     doc.end();
