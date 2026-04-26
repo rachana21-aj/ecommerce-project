@@ -3,6 +3,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./dashboard.css";
 import AdminNavbar from "./AdminNavbar";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer
+} from "recharts";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -40,13 +48,22 @@ function Dashboard() {
     }
   };
 
+ 
+  const chartData = orders
+    .slice(0, 7)
+    .reverse()
+    .map(order => ({
+      date: new Date(order.orderDate).toLocaleDateString(),
+      revenue: order.total
+    }));
+
   return (
     <>
       <AdminNavbar />
 
       <div className="dashboard-wrapper">
 
-       
+        
         <div className="sidebar">
           <p className="active">Dashboard</p>
           <p onClick={() => navigate("/addproduct")}>Add Product</p>
@@ -55,7 +72,7 @@ function Dashboard() {
           <p onClick={() => navigate("/manageuser")}>Manage Users</p>
         </div>
 
-       
+        {/* MAIN */}
         <div className="dashboard-main">
 
           <h2>Welcome to Admin Dashboard</h2>
@@ -86,13 +103,21 @@ function Dashboard() {
           
           <div className="bottom-section">
 
-            {/* CHART (simple placeholder) */}
+            
             <div className="chart-box">
               <h3>Revenue Trend (Last 7 Days)</h3>
-              <div className="fake-chart"></div>
+
+              <ResponsiveContainer width="100%" height={250}>
+                <LineChart data={chartData}>
+                  <XAxis dataKey="date" />
+                  <YAxis />
+                  <Tooltip />
+                  <Line type="monotone" dataKey="revenue" />
+                </LineChart>
+              </ResponsiveContainer>
             </div>
 
-           
+            
             <div className="orders-box">
               <h3>Recent Orders</h3>
 
