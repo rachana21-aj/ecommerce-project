@@ -492,27 +492,24 @@ app.post("/get-cart", async (req, res) => {
 });
 app.get("/admin/stats", async (req, res) => {
   try {
-    const productCount = await Product.countDocuments();
-    const orderCount = await Order.countDocuments();
-    const userCount = await User.countDocuments();
-
+    const products = await Product.find();
     const orders = await Order.find();
+    const users = await UserModel.find();   // ✅ FIXED
 
-    let revenue = 0;
-    orders.forEach(order => {
-      revenue += order.total;
-    });
+    console.log("Products:", products.length);
+    console.log("Orders:", orders.length);
+    console.log("Users:", users.length);
 
     res.json({
-      totalProducts: productCount,
-      totalOrders: orderCount,
-      totalUsers: userCount,
-      totalRevenue: revenue
+      totalProducts: products.length,
+      totalOrders: orders.length,
+      totalUsers: users.length,
+      totalRevenue: orders.reduce((sum, o) => sum + (o.total || 0), 0)
     });
 
   } catch (err) {
-    console.log("ADMIN STATS ERROR:", err); 
-    res.status(500).json({ message: err.message }); 
+    console.log(err);
+    res.status(500).json({ error: err.message });
   }
 });
 
