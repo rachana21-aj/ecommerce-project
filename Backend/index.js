@@ -490,6 +490,30 @@ app.post("/get-cart", async (req, res) => {
     res.status(500).json(err);
   }
 });
+app.get("/admin/stats", async (req, res) => {
+  try {
+    const productCount = await Product.countDocuments();
+    const orderCount = await Order.countDocuments();
+    const userCount = await User.countDocuments();
+
+    const orders = await Order.find();
+
+    let revenue = 0;
+    orders.forEach(order => {
+      revenue += order.total;
+    });
+
+    res.json({
+      totalProducts: productCount,
+      totalOrders: orderCount,
+      totalUsers: userCount,
+      totalRevenue: revenue
+    });
+
+  } catch (err) {
+    res.status(500).json({ message: "Error" });
+  }
+});
 
 
 app.listen(process.env.PORT || 3001, () => {
