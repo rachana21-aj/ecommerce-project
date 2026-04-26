@@ -511,7 +511,8 @@ app.get("/admin/stats", async (req, res) => {
     });
 
   } catch (err) {
-    res.status(500).json({ message: "Error" });
+    console.log("ADMIN STATS ERROR:", err); 
+    res.status(500).json({ message: err.message }); 
   }
 });
 
