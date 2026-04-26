@@ -512,6 +512,17 @@ app.get("/admin/stats", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+app.get("/admin/recent-orders", async (req, res) => {
+  try {
+    const orders = await Order.find()
+      .sort({ orderDate: -1 })
+      .limit(5);
+
+    res.json(orders);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching recent orders" });
+  }
+});
 
 
 app.listen(process.env.PORT || 3001, () => {
