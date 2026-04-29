@@ -293,10 +293,10 @@ req.body.items.forEach(item => {
   doc.text(item.name, 50, y, { width: 180 });
 
 doc.text(item.quantity.toString(), 250, y, { width: 40, align: "right" });
-doc.text(`₹${item.price.toFixed(2)}`, 300, y, { width: 60, align: "right" });
-doc.text(`₹${cgst.toFixed(2)}`, 370, y, { width: 60, align: "right" });
-doc.text(`₹${sgst.toFixed(2)}`, 430, y, { width: 60, align: "right" });
-doc.text(`₹${total.toFixed(2)}`, 500, y, { width: 60, align: "right" });
+doc.text(`rs${item.price.toFixed(2)}`, 300, y, { width: 60, align: "right" });
+doc.text(`rs${cgst.toFixed(2)}`, 370, y, { width: 60, align: "right" });
+doc.text(`rs${sgst.toFixed(2)}`, 430, y, { width: 60, align: "right" });
+doc.text(`rs${total.toFixed(2)}`, 500, y, { width: 60, align: "right" });
 
   y += 20;
 });
