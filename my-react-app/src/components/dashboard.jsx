@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./dashboard.css";
 import AdminNavbar from "./AdminNavbar";
+import { PieChart, Pie, Cell, Legend } from "recharts";
+import { BarChart, Bar } from "recharts";
 import {
   LineChart,
   Line,
@@ -56,6 +58,33 @@ function Dashboard() {
       date: new Date(order.orderDate).toLocaleDateString(),
       revenue: order.total
     }));
+    const statusData = [
+  {
+    name: "Delivered",
+    value: orders.filter(o => o.orderStatus === "Delivered").length
+  },
+  {
+    name: "Pending",
+    value: orders.filter(o => o.orderStatus === "Placed").length
+  }
+];
+
+const COLORS = ["#00C49F", "#FFBB28"];
+const monthlyData = orders.map(order => ({
+  month: new Date(order.orderDate).toLocaleString("default", { month: "short" }),
+  orders: 1
+}));
+
+
+const groupedMonthly = Object.values(
+  monthlyData.reduce((acc, curr) => {
+    if (!acc[curr.month]) {
+      acc[curr.month] = { month: curr.month, orders: 0 };
+    }
+    acc[curr.month].orders += 1;
+    return acc;
+  }, {})
+);
 
   return (
     <>
@@ -101,21 +130,48 @@ function Dashboard() {
           </div>
 
           
-          <div className="bottom-section">
 
             
-            <div className="chart-box">
-              <h3>Revenue Trend (Last 7 Days)</h3>
+            <div className="bottom-section">
 
-              <ResponsiveContainer width="100%" height={250}>
-                <LineChart data={chartData}>
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                  <Tooltip />
-                  <Line type="monotone" dataKey="revenue" />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
+  <div className="chart-box">
+    <h3>Revenue Trend (Last 7 Days)</h3>
+
+    <ResponsiveContainer width="100%" height={250}>
+      <LineChart data={chartData}>
+        <XAxis dataKey="date" />
+        <YAxis />
+        <Tooltip />
+        <Line type="monotone" dataKey="revenue" />
+      </LineChart>
+    </ResponsiveContainer>
+  </div>
+  
+
+  <div className="pie-box">
+    <h3>Order Status</h3>
+
+    <PieChart width={250} height={250}>
+      <Pie data={statusData} dataKey="value" outerRadius={80}>
+        {statusData.map((entry, index) => (
+          <Cell key={index} fill={COLORS[index]} />
+        ))}
+      </Pie>
+      <Legend />
+    </PieChart>
+  </div>
+
+</div>
+<div className="chart-box">
+  <h3>Monthly Orders</h3>
+
+  <BarChart width={400} height={250} data={groupedMonthly}>
+    <XAxis dataKey="month" />
+    <YAxis />
+    <Tooltip />
+    <Bar dataKey="orders" />
+  </BarChart>
+</div>
 
             
             <div className="orders-box">

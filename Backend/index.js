@@ -494,7 +494,7 @@ app.get("/admin/stats", async (req, res) => {
   try {
     const products = await Product.find();
     const orders = await Order.find();
-    const users = await UserModel.find();   // ✅ FIXED
+    const users = await UserModel.find();   
 
     console.log("Products:", products.length);
     console.log("Orders:", orders.length);
@@ -516,7 +516,7 @@ app.get("/admin/recent-orders", async (req, res) => {
   try {
     const orders = await Order.find()
       .sort({ orderDate: -1 })
-      .limit(5);
+      .limit(50);
 
     res.json(orders);
   } catch (err) {
