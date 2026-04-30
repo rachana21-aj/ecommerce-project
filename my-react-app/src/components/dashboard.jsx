@@ -191,7 +191,7 @@ const groupedMonthly = Object.values(
           </div>
 
         </div>
-      </div>
+     
     </>
   );
 }
