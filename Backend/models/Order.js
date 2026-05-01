@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const OrderSchema = new mongoose.Schema({
   fullName: String,
   email: String,
@@ -21,5 +20,4 @@ const OrderSchema = new mongoose.Schema({
     default: Date.now      
   }
 });
-
 module.exports = OrderSchema;
