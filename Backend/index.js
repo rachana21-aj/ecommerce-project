@@ -279,11 +279,18 @@ doc.text("Shipping: Standard Delivery", 350, 140);
 doc.text("Shipping Cost: FREE", 350, 155);
 
 
-doc.moveDown(2);
-doc.text("Billed To:", 50, 180);
-doc.text(req.body.fullName, 50, 195);
-doc.text(`${req.body.address}`, 50, 210);
-doc.text(`${req.body.city}, ${req.body.state}`, 50, 225);
+let billY = 180;
+
+doc.fontSize(12).font("Helvetica-Bold").text("Billed To:", 50, billY);
+
+doc.fontSize(10).font("Helvetica");
+doc.text(req.body.fullName, 50, billY + 20);
+
+doc.text(req.body.address, 50, billY + 40, {
+  width: 200
+});
+
+doc.text(`${req.body.city}, ${req.body.state}`, 50, billY + 70);
 
 
 const tableTop = 260;
@@ -311,10 +318,10 @@ req.body.items.forEach(item => {
 
   doc.text(item.name, 55, y, { width: 150 });
   doc.text(item.quantity.toString(), 250, y);
-  doc.text(`₹${item.price.toFixed(2)}`, 300, y);
-  doc.text(`₹${cgst.toFixed(2)}`, 360, y);
-  doc.text(`₹${sgst.toFixed(2)}`, 420, y);
-  doc.text(`₹${total.toFixed(2)}`, 480, y);
+  doc.text(`rs ${item.price.toFixed(2)}`, 300, y);
+  doc.text(`rs ${cgst.toFixed(2)}`, 360, y);
+  doc.text(`rs ${sgst.toFixed(2)}`, 420, y);
+  doc.text(`rs ${total.toFixed(2)}`, 480, y);
 
   y += 20;
 });
