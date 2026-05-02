@@ -14,6 +14,7 @@ function AddProducts() {
   const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [category, setCategory] = useState("");
+  const [subCategory, setSubCategory] = useState(""); // ✅ ADDED
   const [image, setImage] = useState(null);
 
   useEffect(() => {
@@ -24,6 +25,7 @@ function AddProducts() {
       setPrice(product.price);
       setQuantity(product.quantity);
       setCategory(product.category);
+      setSubCategory(product.subCategory || ""); // ✅ ADDED
     }
 
   }, [product]);
@@ -31,50 +33,52 @@ function AddProducts() {
   const handleImage = (e) => {
     setImage(e.target.files[0]);
   };
-const handleAddProduct = async () => {
 
-  const formData = new FormData();
+  const handleAddProduct = async () => {
 
-  formData.append("name", name);
-  formData.append("description", description);
-  formData.append("price", Number(price));
-  formData.append("quantity", Number(quantity));
-  formData.append("category", category);
+    const formData = new FormData();
 
-  if (image) {
-    formData.append("image", image);
-  }
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("price", Number(price));
+    formData.append("quantity", Number(quantity));
+    formData.append("category", category);
+    formData.append("subCategory", subCategory); // ✅ ADDED
 
-  try {
-
-    if (product) {
-      await axios.post(
-  "https://ecommerce-backend-tc76.onrender.com/addproduct",
-  formData,
-  {
-    headers: {
-      "Content-Type": "multipart/form-data"
-    }
-  }
-);
-      alert("Product Updated Successfully");
-    } else {
-      await axios.post(
- "https://ecommerce-backend-tc76.onrender.com/addproduct",
- formData,
- {
-   headers:{
-     "Content-Type":"multipart/form-data"
-   }
- }
-);
-      alert("Product Added Successfully");
+    if (image) {
+      formData.append("image", image);
     }
 
-  } catch (err) {
-    console.log(err);
-  }
-};
+    try {
+
+      if (product) {
+        await axios.post(
+          "https://ecommerce-backend-tc76.onrender.com/addproduct",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          }
+        );
+        alert("Product Updated Successfully");
+      } else {
+        await axios.post(
+          "https://ecommerce-backend-tc76.onrender.com/addproduct",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data"
+            }
+          }
+        );
+        alert("Product Added Successfully");
+      }
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
@@ -114,13 +118,67 @@ const handleAddProduct = async () => {
         <label>Category</label>
         <select
           value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          onChange={(e) => {
+            setCategory(e.target.value);
+            setSubCategory(""); // reset when category changes
+          }}
         >
           <option value="">Select Category</option>
           <option>Women</option>
           <option>Men</option>
           <option>Boys</option>
           <option>Girls</option>
+        </select>
+
+        {/* ✅ NEW SUBCATEGORY DROPDOWN */}
+        <label>Sub Category</label>
+        <select
+          value={subCategory}
+          onChange={(e) => setSubCategory(e.target.value)}
+        >
+          <option value="">Select Sub Category</option>
+
+          {category === "Women" && (
+            <>
+              <option value="sarees">Sarees</option>
+              <option value="dresses">Dresses</option>
+              <option value="kurtas">Kurtas</option>
+              <option value="tops">Tops</option>
+              <option value="ethnic">Ethnic</option>
+              <option value="accessories">Accessories</option>
+            </>
+          )}
+
+          {category === "Men" && (
+            <>
+              <option value="jeans">Jeans</option>
+              <option value="tshirt">T-Shirt</option>
+              <option value="shirts">Shirts</option>
+              <option value="trousers">Trousers</option>
+              <option value="footwear">Footwear</option>
+            </>
+          )}
+
+          {category === "Girls" && (
+            <>
+              <option value="twinsets">Twin Sets</option>
+              <option value="frocks">Frocks</option>
+              <option value="tops">Tops</option>
+              <option value="ethnic">Ethnic</option>
+              <option value="bottom">Bottom</option>
+              <option value="winterwear">Winterwear</option>
+            </>
+          )}
+
+          {category === "Boys" && (
+            <>
+              <option value="shirts">Shirts</option>
+              <option value="tshirt">T-Shirts</option>
+              <option value="bottom">Bottoms</option>
+              <option value="ethnic">Ethnic</option>
+              <option value="winterwear">Winterwear</option>
+            </>
+          )}
         </select>
 
         <label>Product Image</label>

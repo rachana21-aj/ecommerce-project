@@ -120,13 +120,14 @@ app.post("/addproduct", upload.single("image"), async (req, res) => {
     console.log("FILE:", req.file);  
 
     const newProduct = new Product({
-      name: req.body.name,
-      description: req.body.description,
-      price: Number(req.body.price),
-      quantity: req.body.quantity,
-      category: req.body.category,
-      image: req.file ? req.file.path || req.file.secure_url : ""
-    });
+  name: req.body.name,
+  description: req.body.description,
+  price: Number(req.body.price),
+  quantity: req.body.quantity,
+  category: req.body.category,
+  subCategory: req.body.subCategory, // ✅ ADD THIS
+  image: req.file ? req.file.path || req.file.secure_url : ""
+});
 
     const savedProduct = await newProduct.save();
 
@@ -162,11 +163,12 @@ app.put("/updateproduct/:id", upload.single("image"), async (req, res) => {
 try {
 
 const updatedProduct = {
-name: req.body.name,
-description: req.body.description,
-price: req.body.price,
-quantity: req.body.quantity,
-category: req.body.category
+  name: req.body.name,
+  description: req.body.description,
+  price: req.body.price,
+  quantity: req.body.quantity,
+  category: req.body.category,
+  subCategory: req.body.subCategory // ✅ ADD THIS
 };
 
 if (req.file) {
