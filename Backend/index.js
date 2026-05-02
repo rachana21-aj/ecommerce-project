@@ -278,19 +278,23 @@ doc.text(`Status: ${req.body.orderStatus}`, 200, 140);
 doc.text("Shipping: Standard Delivery", 350, 140);
 doc.text("Shipping Cost: FREE", 350, 155);
 
-
 let billY = 180;
 
 doc.fontSize(12).font("Helvetica-Bold").text("Billed To:", 50, billY);
 
 doc.fontSize(10).font("Helvetica");
+
+
 doc.text(req.body.fullName, 50, billY + 20);
 
+
 doc.text(req.body.address, 50, billY + 40, {
-  width: 200
+  width: 220,
+  lineGap: 4
 });
 
-doc.text(`${req.body.city}, ${req.body.state}`, 50, billY + 70);
+
+doc.text(`${req.body.city}, ${req.body.state}`, 50, billY + 80);
 
 
 const tableTop = 260;
@@ -345,7 +349,7 @@ doc.text("Shipping:", 350, y + 30);
 doc.text("FREE", 480, y + 30);
 
 doc.fontSize(12).text("Grand Total:", 350, y + 50);
-doc.fontSize(12).text(`₹${grandTotal.toFixed(2)}`, 480, y + 50);
+doc.fontSize(12).text(`Rs ${grandTotal.toFixed(2)}`, 480, y + 50);
 
 
 doc.fontSize(10).text(
