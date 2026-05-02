@@ -243,19 +243,33 @@ let buffers = [];
 doc.on("data", chunk => buffers.push(chunk));
 
 
+
+doc.image("assets/logo.png", 50, 45, { width: 60 });
+
+
 doc.rect(40, 40, 520, 80).stroke();
 
-doc.fontSize(14).text("LimeRoad Pvt Ltd", 50, 50);
-doc.fontSize(10).text("Kotekar, Mangalore", 50, 65);
-doc.text("Karnataka, India", 50, 78);
-doc.text("Email: support@limeroad.com", 50, 91);
 
-doc.fontSize(14).text("OFFICIAL RECEIPT", 400, 50);
+doc.fontSize(14).text("LimeRoad Pvt Ltd", 120, 50);
+doc.fontSize(10).text("Kotekar, Mangalore", 120, 65);
+doc.text("Karnataka, India", 120, 78);
+doc.text("Email: support@limeroad.com", 120, 91);
+
+
+doc.font("Helvetica-Bold").fontSize(14).text("OFFICIAL RECEIPT", 400, 50);
+doc.font("Helvetica");
+
+
+const formattedDate = new Date().toLocaleDateString("en-GB", {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric"
+});
 
 doc.fontSize(10);
 doc.text(`Invoice #: INV-${Date.now()}`, 350, 80);
 doc.text(`Order ID: ${savedOrder._id}`, 350, 95);
-doc.text(`Date: ${new Date().toLocaleDateString()}`, 350, 110);
+doc.text(`Date: ${formattedDate}`, 350, 110);
 
 
 doc.moveDown(2);
