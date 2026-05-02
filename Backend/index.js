@@ -318,10 +318,10 @@ req.body.items.forEach(item => {
 
   doc.text(item.name, 55, y, { width: 150 });
   doc.text(item.quantity.toString(), 250, y);
-  doc.text(`rs ${item.price.toFixed(2)}`, 300, y);
-  doc.text(`rs ${cgst.toFixed(2)}`, 360, y);
-  doc.text(`rs ${sgst.toFixed(2)}`, 420, y);
-  doc.text(`rs ${total.toFixed(2)}`, 480, y);
+  doc.text(`Rs ${item.price.toFixed(2)}`, 300, y);
+  doc.text(`Rs ${cgst.toFixed(2)}`, 360, y);
+  doc.text(`Rs ${sgst.toFixed(2)}`, 420, y);
+  doc.text(`Rs ${total.toFixed(2)}`, 480, y);
 
   y += 20;
 });
@@ -336,10 +336,10 @@ const grandTotal = subtotal + totalTax;
 y += 20;
 
 doc.text("Subtotal:", 350, y);
-doc.text(`₹${subtotal.toFixed(2)}`, 480, y);
+doc.text(`Rs ${subtotal.toFixed(2)}`, 480, y);
 
 doc.text("GST (18%):", 350, y + 15);
-doc.text(`₹${totalTax.toFixed(2)}`, 480, y + 15);
+doc.text(`Rs ${totalTax.toFixed(2)}`, 480, y + 15);
 
 doc.text("Shipping:", 350, y + 30);
 doc.text("FREE", 480, y + 30);
