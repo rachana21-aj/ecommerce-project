@@ -113,6 +113,41 @@ res.json({ message: "OTP verified successfully", email: user.email });
 res.status(500).json({ error: "Server error" });
 }
 });
+app.post("/resend-otp", async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ error: "Email required" });
+    }
+
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const otp = generateOTP();
+    const otpExpires = new Date(Date.now() + 5 * 60 * 1000);
+
+    user.otp = otp;
+    user.otpExpires = otpExpires;
+
+    await user.save();
+
+    await sendMail(
+      email,
+      "Your Resent OTP",
+      `<h2>${otp}</h2><p>This OTP is valid for 5 minutes.</p>`
+    );
+
+    res.json({ message: "OTP resent successfully" });
+
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 app.post("/addproduct", upload.single("image"), async (req, res) => {
   try {
 
