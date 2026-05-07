@@ -22,16 +22,12 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!validateEmail(email)) return;
-
     try {
       await axios.post("https://ecommerce-backend-tc76.onrender.com/login", { email });
-
-      
       navigate("/otp", { state: { email } });
-
-    } catch (err) {
+    } 
+    catch (err) {
       console.log(err);
     }
   };
