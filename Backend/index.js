@@ -160,7 +160,7 @@ app.post("/addproduct", upload.single("image"), async (req, res) => {
   price: Number(req.body.price),
   quantity: req.body.quantity,
   category: req.body.category,
-  subCategory: req.body.subCategory, // ✅ ADD THIS
+  subCategory: req.body.subCategory, 
   image: req.file ? req.file.path || req.file.secure_url : ""
 });
 
